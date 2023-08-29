@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Chatbotpistwo.css';
+import persontwo from '../Assets/person.png'
 
 function Chatbotapistwo() {
   const [messages, setMessages] = useState([]);
@@ -47,7 +48,9 @@ function Chatbotapistwo() {
         <div className='clear-chat-parent-div'>
         
                 <div className='new-chat-div'  onClick={clearChat}>+ New Chat</div>
-                <div style={{color:"pink"}}>icon</div>
+                <div style={{width:"20px",height:"20px"}} >
+                  <img src={persontwo} alt="person-icon" style={{width:"100%",height:"100%",objectFit:"contain"}} />
+                </div>
           
         </div>
    {/* </div> */}
