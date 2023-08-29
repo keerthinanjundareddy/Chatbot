@@ -234,11 +234,12 @@ body{
     .chat-name-div{
       border:1px solid pink;
       background-color: pink;
-      border-radius: 2px;
+      border-radius: 8px;
   
-      padding-left: 5px;
-      padding-right: 5px;
-      color:rgb(240, 58, 88);;
+      padding-left: 8px;
+      padding-right: 8px;
+      color:rgb(240, 58, 88);
+      text-align: center;
     }
     @media (max-width: 400px) {
       .message {

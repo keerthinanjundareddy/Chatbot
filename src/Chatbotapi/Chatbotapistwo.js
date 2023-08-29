@@ -42,7 +42,7 @@ function Chatbotapistwo() {
 
          <div className='chat-parent-div'>
               <div className='chat-name-div'>Chat</div>
-                <div>Readme</div>
+                {/* <div>Readme</div> */}
          </div>
 
         <div className='clear-chat-parent-div'>
