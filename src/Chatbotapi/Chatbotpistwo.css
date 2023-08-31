@@ -206,6 +206,10 @@ body{
       /* padding: 10px; */
       padding-left: 20px;
       padding-right: 20px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      margin-top: 5px;
+      margin-bottom: 5px;
       cursor:pointer;
     }
     .user-parent-div{
@@ -266,7 +270,7 @@ body{
     }
     /* Add this to your existing CSS for sidebar styling */
 .sidebar-content {
-  padding-top: 30px;
+  padding-top: 80px;
   padding-left: 10px;
   padding-right: 10px;
   background-color: #333;
@@ -274,8 +278,26 @@ body{
   display: flex;
   flex-direction: column;
   gap: 10px;
+  scrollbar-width: thin; /* "thin" is a smaller scrollbar width */
+  scrollbar-color:  #333; 
 }
 
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent; /* Make the track transparent */
+}
+
+/* Style the custom scrollbar thumb (optional) */
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: transparent; /* Make the thumb transparent */
+}
+
+/* Style the custom scrollbar thumb on hover (optional) */
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: transparent; /* Add a hover effect (change the color) */
+}
+.sidebaropen::-webkit-scrollbar {
+  display: none !important; /* Hide the scrollbar in Webkit browsers (Chrome, Safari, etc.) */
+}
 .question {
   padding: 10px;
   border-radius: 8px;
@@ -351,6 +373,14 @@ body{
         z-index: 100;/* Add this line */
     
       }
+      .sidebaropen::-webkit-scrollbar {
+        display: none !important; /* Hide the scrollbar in Webkit browsers (Chrome, Safari, etc.) */
+      }
+
+      .sidebarclose::-webkit-scrollbar {
+        display: none !important; /* Hide the scrollbar in Webkit browsers (Chrome, Safari, etc.) */
+      }
+
 
       .hamburger-icon{
         display: block;
@@ -391,6 +421,14 @@ body{
     .hamburgerdisappearingicon{
       display:none;
     }
+    .sidebaropen::-webkit-scrollbar {
+      display: none !important; /* Hide the scrollbar in Webkit browsers (Chrome, Safari, etc.) */
+    }
+
+    .sidebarclose::-webkit-scrollbar {
+      display: none !important; /* Hide the scrollbar in Webkit browsers (Chrome, Safari, etc.) */
+    }
+
 
     }
     

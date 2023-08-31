@@ -43,13 +43,13 @@ function Chatbotapistwo() {
     setMobileSidebarOpen(!mobileSidebarOpen);
   };
  function hamburgerclose(){
-  window.alert("hi");
+
    sethamburgerdisplay(!hamburgerdisplay); 
 
  }
 
  function hamburgerdisappearing(){
-  window.alert("hey");
+
   sethamburgerdisplay(!hamburgerdisplay); 
  }
   useEffect(() => {
@@ -58,6 +58,14 @@ function Chatbotapistwo() {
     }
   }, [messages]);
 
+  const handleInputKeyPress = (e) => {
+    if (e.key === 'Enter') {
+    
+      sendMessage();
+    }
+  };
+  
+
   return (
     <>
       <div className={`navbar ${inputFocused ? 'navbar-focused' : ''}`}>
@@ -65,7 +73,7 @@ function Chatbotapistwo() {
           {/* <div className='chat-name-div'>Chat</div> */}
           <div className='hamburger-button'  onClick={hamburgerclose}>
               <div className="hamburger-icon" style={{cursor:"pointer"}}>
-                <img src={hamburger} style={{width:"20px",height:"20px"}} />
+                <img src={hamburger} style={{width:"60px",height:"60px"}} />
               </div>
           </div>
         </div>
@@ -130,6 +138,7 @@ function Chatbotapistwo() {
               placeholder="Type your message..."
               value={userInput}
               onChange={handleInputChange}
+              onKeyDown={handleInputKeyPress}
             />
             <button onClick={sendMessage}>Send</button>
           </div>
