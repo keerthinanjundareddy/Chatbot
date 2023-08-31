@@ -1,19 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Chatbotpistwo.css';
-import persontwo from '../Assets/person.png'
+import persontwo from '../Assets/person.png';
 
 function Chatbotapistwo() {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState('');
+  const [questions, setQuestions] = useState([]);
   const messageListRef = useRef(null);
   const [inputFocused, setInputFocused] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const[hamburgerdisplay,sethamburgerdisplay]=useState(true) // New state for mobile sidebar
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
   };
 
   const clearChat = () => {
-    setMessages([]); // Set messages to an empty array to clear the chat
+    setMessages([]);
   };
 
   const sendMessage = () => {
@@ -24,12 +28,29 @@ function Chatbotapistwo() {
       timestamp: new Date().toLocaleTimeString(),
     };
 
+    setQuestions([...questions, userInput]);
     setMessages([...messages, newMessage]);
     setUserInput('');
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
+  const toggleMobileSidebar = () => {
+    setMobileSidebarOpen(!mobileSidebarOpen);
+  };
+ function hamburgerclose(){
+  window.alert("hi");
+   sethamburgerdisplay(!hamburgerdisplay); 
+
+ }
+
+ function hamburgerdisappearing(){
+  window.alert("hey");
+  sethamburgerdisplay(!hamburgerdisplay); 
+ }
   useEffect(() => {
-    // Scroll to the bottom of the message list container when messages change
     if (messageListRef.current) {
       messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
     }
@@ -37,50 +58,66 @@ function Chatbotapistwo() {
 
   return (
     <>
-     <div className={`navbar ${inputFocused ? 'navbar-focused' : ''}`}>
-  {/* <div className='nav-parent-div'> */}
-
-         <div className='chat-parent-div'>
-              <div className='chat-name-div'>Chat</div>
-                {/* <div>Readme</div> */}
-         </div>
+      <div className={`navbar ${inputFocused ? 'navbar-focused' : ''}`}>
+        <div className='chat-parent-div'>
+          <div className='chat-name-div'>Chat</div>
+          <div className='hamburger-button'  onClick={hamburgerclose}>
+              <div className="hamburger-icon" style={{border:"1px solid blue",backgroundColor:"blue",cursor:"pointer"}}>hii</div>
+          </div>
+        </div>
 
         <div className='clear-chat-parent-div'>
-        
-                <div className='new-chat-div'  onClick={clearChat}>+ New Chat</div>
-                <div style={{width:"20px",height:"20px"}} >
-                  <img src={persontwo} alt="person-icon" style={{width:"100%",height:"100%",objectFit:"contain"}} />
-                </div>
+          <div className='new-chat-div' onClick={clearChat}>+ New Chat</div>
+          <div className={`toggle-sidebar-button ${mobileSidebarOpen ? 'open' : ''}`} onClick={toggleMobileSidebar}>
+            <img src={persontwo} alt="person-icon" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+          </div>
           
         </div>
-   {/* </div> */}
+      </div>
+
+      <div className={hamburgerdisplay ? 'sidebaropen' : 'sidebarclose'}>
+        <div className='sidebar-content'>
+          <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+          <h2 >Questions</h2>
+          <h1 onClick={hamburgerdisappearing} className='hamburgerdisappearingicon'>hi</h1>
+         
+          </div>
+          <ul>
+            {questions.map((question, index) => (
+              <li key={index} className='question'>
+               
+              {question}
+              
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <div className="chat-app">
-      <div className="chat">
-        {/* Render chat messages */}
-        <div className="message-list" ref={messageListRef}>
-          {messages.map((message, index) => (
-            <div key={index} className="message" >
-              <div style={{display:"flex",flexDirection:"column",gap:"10px"}}>
-              <div className='user-parent-div'>
-                <div className='user-timestamp-parent-div'>
-                <div className='user-name-div'>user</div>
-                <div className='user-time-div'>{message.timestamp}</div>
+        <div className="chat">
+          <div className="message-list" ref={messageListRef}>
+            {messages.map((message, index) => (
+              <div key={index} className="message">
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                  <div className='user-parent-div'>
+                    <div className='user-timestamp-parent-div'>
+                      <div className='user-name-div'>user</div>
+                      <div className='user-time-div'>{message.timestamp}</div>
+                    </div>
+                    <div className='user-question-div'>{message.text}</div>
+                  </div>
+                  <div className='user-parent-output-div'>
+                    <div className='user-timestamp-parent-div-two'>
+                      <div className="chatbot-name-div">Chatbot</div>
+                      <div className='chatbot-time-div'>{message.timestamp}</div>
+                    </div>
+                    <div className='chatbot-output-div'>output</div>
+                  </div>
                 </div>
-              <div className='user-question-div'>{message.text}</div>
               </div>
-              <div className='user-parent-output-div'>
-                <div className='user-timestamp-parent-div-two'>
-              <div className="chatbot-name-div">Chatbot</div>
-              <div className='chatbot-time-div'>{message.timestamp}</div>
-              </div>
-              <div className='chatbot-output-div'>output</div>
-              </div>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
           <div className="user-input">
             <input
               type="text"
