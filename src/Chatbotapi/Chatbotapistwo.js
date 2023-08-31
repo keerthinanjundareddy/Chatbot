@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Chatbotpistwo.css';
 import persontwo from '../Assets/person.png';
+import hamburger from '../Assets/hamburger-menu-icon-png-white-18 (1).jpg'
+import close from '../Assets/icons8-close-window-50.png'
 
 function Chatbotapistwo() {
   const [messages, setMessages] = useState([]);
@@ -60,9 +62,11 @@ function Chatbotapistwo() {
     <>
       <div className={`navbar ${inputFocused ? 'navbar-focused' : ''}`}>
         <div className='chat-parent-div'>
-          <div className='chat-name-div'>Chat</div>
+          {/* <div className='chat-name-div'>Chat</div> */}
           <div className='hamburger-button'  onClick={hamburgerclose}>
-              <div className="hamburger-icon" style={{border:"1px solid blue",backgroundColor:"blue",cursor:"pointer"}}>hii</div>
+              <div className="hamburger-icon" style={{cursor:"pointer"}}>
+                <img src={hamburger} style={{width:"20px",height:"20px"}} />
+              </div>
           </div>
         </div>
 
@@ -79,7 +83,9 @@ function Chatbotapistwo() {
         <div className='sidebar-content'>
           <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
           <h2 >Questions</h2>
-          <h1 onClick={hamburgerdisappearing} className='hamburgerdisappearingicon'>hi</h1>
+          <h1 onClick={hamburgerdisappearing} className='hamburgerdisappearingicon'>
+            <img src={close} style={{width:"20px",height:"20px"}}/>
+          </h1>
          
           </div>
           <ul>
