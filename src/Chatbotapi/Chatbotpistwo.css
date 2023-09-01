@@ -1,7 +1,7 @@
 /* ChatApp.css */
 body{
     background-color:  #e8e3e3 !important;
-    height:100vh;
+    /* height:100vh; */
     width:100%;
   }
   .sidebaropen {
@@ -92,10 +92,13 @@ body{
       padding: 15px;
       cursor: pointer;
     }
-    
-    button:hover {
-      background-color: #0056b3;
+    .button:active {
+      background-color: red !important;/* Your desired background color */;
     }
+    
+    /* button:hover {
+      background-color: #0056b3;
+    } */
     .message-list {
       flex: 1;
       padding: 20px;
@@ -210,7 +213,7 @@ body{
       padding-bottom: 10px;
       margin-top: 5px;
       margin-bottom: 5px;
-      cursor:pointer;
+    
     }
     .user-parent-div{
       display: flex;
@@ -329,6 +332,7 @@ body{
 }
 
 
+
     @media (max-width: 400px) {
       .message {
         max-width: 70%; /* Set a maximum width for messages on smaller screens */
@@ -405,6 +409,32 @@ body{
       .hamburgerdisappearingicon{
         display:block;
       }
+      .sidebar-content {
+        padding-top: 0px;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-color: #333;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        scrollbar-width: thin; /* "thin" is a smaller scrollbar width */
+        scrollbar-color:  #333; 
+      }
+      .chat-app {
+        display: flex;
+        height:80vh;
+        padding-top:10vh ;
+        background-color: #e8e3e3;
+        padding-left: 20px;
+        padding-right: 20px;
+        word-wrap: break-word;
+        
+      }
+      .button:active{
+        background-color: red !important;
+      }
+      
 
     }
 
@@ -429,7 +459,12 @@ body{
       display: none !important; /* Hide the scrollbar in Webkit browsers (Chrome, Safari, etc.) */
     }
 
-
+    .hamburger-icon{
+          cursor:pointer;
+    }
+    .new-chat-div{
+      cursor: pointer;
+    }
     }
     
     

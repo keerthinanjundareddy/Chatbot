@@ -18,8 +18,10 @@ function Chatbotapistwo() {
     setUserInput(e.target.value);
   };
 
+ 
   const clearChat = () => {
     setMessages([]);
+    setQuestions([]);
   };
 
   const sendMessage = () => {
@@ -72,9 +74,9 @@ function Chatbotapistwo() {
         <div className='chat-parent-div'>
           {/* <div className='chat-name-div'>Chat</div> */}
           <div className='hamburger-button'  onClick={hamburgerclose}>
-              <div className="hamburger-icon" style={{cursor:"pointer"}}>
-                <img src={hamburger} style={{width:"60px",height:"60px"}} />
-              </div>
+              {/* <div  style={{cursor:"pointer"}}> */}
+                <img src={hamburger} style={{width:"60px",height:"60px"}}  className="hamburger-icon"/>
+              {/* </div> */}
           </div>
         </div>
 
@@ -92,19 +94,17 @@ function Chatbotapistwo() {
           <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
           <h2 >Questions</h2>
           <h1 onClick={hamburgerdisappearing} className='hamburgerdisappearingicon'>
-            <img src={close} style={{width:"20px",height:"20px"}}/>
+            <img src={close} style={{width:"40px",height:"40px"}}/>
           </h1>
          
           </div>
           <ul>
-            {questions.map((question, index) => (
-              <li key={index} className='question'>
-               
-              {question}
-              
-              </li>
-            ))}
-          </ul>
+  {questions.slice().reverse().map((question, index) => (
+    <li key={index} className='question'>
+      {question}
+    </li>
+  ))}
+</ul>
         </div>
       </div>
 
@@ -139,8 +139,16 @@ function Chatbotapistwo() {
               value={userInput}
               onChange={handleInputChange}
               onKeyDown={handleInputKeyPress}
+              style={{
+                width: "100%",
+                // Prevent text from wrapping
+                 overflow: "hidden",
+                 wordWrap:"now-wrap"
+              }}
             />
+           
             <button onClick={sendMessage}>Send</button>
+            
           </div>
         </div>
       </div>
