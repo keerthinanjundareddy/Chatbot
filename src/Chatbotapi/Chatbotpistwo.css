@@ -74,7 +74,7 @@ body{
     display: flex;
     align-items: center;
     padding: 10px;
-    margin-left: 25%;
+    margin-left: 20%;
 
   }
   
@@ -208,12 +208,18 @@ body{
     display: flex;
     flex-direction: row;
     gap:40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
     /* border:1px solid blue; */
   }
   .user-parent-output-div{
     display: flex;
     flex-direction: row;
     gap:40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
     /* border:1px solid blue; */
   }
   .user-timestamp-parent-div{
