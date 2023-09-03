@@ -108,9 +108,9 @@ function Chatbotapistwo() {
         </div>
       </div>
 
-      <div className="chat-app">
-        <div className="chat">
-          <div className="message-list" ref={messageListRef}>
+      <div className="chat-app" style={{border:"1px solid yellow"}}>
+        <div className="chat" style={{border:"1px solid green"}}>
+          <div className="message-list" ref={messageListRef} style={{border:"1px solid red"}} >
             {messages.map((message, index) => (
               <div key={index} className="message"  style={{border:"1px solid white",backgroundColor:"white"}}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
