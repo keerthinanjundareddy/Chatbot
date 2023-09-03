@@ -112,7 +112,7 @@ function Chatbotapistwo() {
         <div className="chat">
           <div className="message-list" ref={messageListRef}>
             {messages.map((message, index) => (
-              <div key={index} className="message">
+              <div key={index} className="message"  style={{border:"1px solid white",backgroundColor:"white"}}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                   <div className='user-parent-div'>
                     <div className='user-timestamp-parent-div'>
