@@ -102,10 +102,10 @@ body{
     .message-list {
       flex: 1;
       padding: 20px;
-      overflow-y: auto;
+      /* overflow-y: auto; */
       display: flex;
       flex-direction: column;
-      margin-left:20% ; /* Ensures messages stack vertically */
+       margin-left:20% ; 
     }
     
     .message {
@@ -127,22 +127,9 @@ body{
     Copy code
     /* ChatApp.css */
     
-    .message-list {
-      flex: 1;
-      padding: 20px;
-      overflow-y: scroll; /* Use "scroll" instead of "auto" to hide the scrollbar */
-      display: flex;
-      flex-direction: column;
-      gap:10px;
-    }
+  
     
-    .message {
-      /* background-color: #f0f0f0; */
-      border-radius: 8px;
-      padding: 10px;
-      width: 100%; /* Makes each message div 100% width */
-      word-wrap: break-word; /* Allows text to wrap within the div */
-    }
+  
     .message-list::-webkit-scrollbar {
       display: none; /* Hide the scrollbar in Webkit browsers (Chrome, Safari, etc.) */
     }
@@ -333,16 +320,7 @@ body{
 
 
 
-    @media (max-width: 400px) {
-      .message {
-        max-width: 70%; /* Set a maximum width for messages on smaller screens */
-      }
-      .navbar {
-        width: 100%;
-      }
-  
-    }
-
+   
 
     @media (max-width: 600px) {
       .sidebaropen {
@@ -399,9 +377,9 @@ body{
       }
 
       .message-list {
-        flex: 1;
+        /* flex: 1; */
         padding: 20px;
-        overflow-y: auto;
+       
         display: flex;
         flex-direction: column;
         margin-left:0% ; /* Ensures messages stack vertically */
