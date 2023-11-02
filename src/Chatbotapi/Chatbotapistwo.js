@@ -1,159 +1,240 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Chatbotpistwo.css';
-import persontwo from '../Assets/person.png';
-import hamburger from '../Assets/hamburger-menu-icon-png-white-18 (1).jpg'
-import close from '../Assets/icons8-close-window-50.png'
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale } from 'chart.js';
+import axios from 'axios'
+import dropdownuparrows from '../Assets/up-arrow.png'
+import dropdowndownarrows from '../Assets/arrow-down-sign-to-navigate.png'
+import funding from '../Assets/Funding.png'
 
-function Chatbotapistwo() {
-  const [messages, setMessages] = useState([]);
-  const [userInput, setUserInput] = useState('');
-  const [questions, setQuestions] = useState([]);
-  const messageListRef = useRef(null);
-  const [inputFocused, setInputFocused] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const[hamburgerdisplay,sethamburgerdisplay]=useState(true) // New state for mobile sidebar
+ChartJS.register(BarElement, LinearScale, CategoryScale);
 
-  const handleInputChange = (e) => {
-    setUserInput(e.target.value);
+const Chatbotapistwo = () => {
+  const optionstwo = [
+ 'rachana',
+ 'keerthana',
+ 'digant',
+ 'kavya',
+ 'bhavya',
+ 'pradeepthi',
+ 'naghma',
+ 'suneel',
+ 'pannaga',
+ 'swaroop',
+ 'bharat',
+ 'nahusha',
+'nandan',
+ 'nandeesha',
+
+  ];
+
+  const [selectedOption, setSelectedOption] = useState('');
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [chartData, setChartData] = useState(null);
+  const [summary, setSummary] = useState('');
+  const[popupTwo,setPopuptwo]=useState(false)
+  
+// Copy code
+const [optionSelected, setOptionSelected] = useState(false);
+
+
+  const toggleDropdown = () => {
+    setPopupOpen(!popupOpen);
+  };
+  const chartDataByEmployee = {
+    rachana: [12, 19, 3, 5, 2],
+    keerthana: [5, 10, 15, 20, 22],
+    digant: [5, 10, 13, 22, 22],
+    kavya: [8, 10, 5, 20, 10],
+    bhavya: [5, 9, 15, 20, 15],
+    pradeepthi: [5, 8, 15, 10, 22],
+    naghma: [15, 10, 10, 20, 22],
+    suneel: [5, 4, 15, 20, 5],
+    pannaga: [15, 10, 15, 22, 22],
+    swaroop: [5, 15, 15, 22, 10],
+    bharat: [5, 10, 5, 20, 22],
+    nahusha: [5, 6, 15, 23, 12],
+    sharan: [5, 10, 5, 20, 18],
+    nandeesha: [15, 12, 10, 20, 13],
+    nandan: [8, 10, 12, 19, 14],
+
+    // ... add data for other employees ...
   };
 
- 
-  const clearChat = () => {
-    setMessages([]);
-    setQuestions([]);
-  };
+  const handleOptionClick = (option) => {
+    console.log("option",option)
+    setSelectedOption(option);
+    setOptionSelected(true);
+    console.log("selectedoption",selectedOption)
+    setPopupOpen(false);
+    setPopuptwo(true)
+    setSummary(''); // newelyadded one
+    const scrollableOptions = document.querySelector('.scrollable-options');
+    scrollableOptions.classList.add('active');
 
-  const sendMessage = () => {
-    if (userInput.trim() === '') return;
 
-    const newMessage = {
-      text: userInput,
-      timestamp: new Date().toLocaleTimeString(),
+    const headerObject = {
+      'Content-Type':'application/json',
+      "Accept":"*/*",
+      }
+      
+    const dashboardsApi = "http://employee-dashboard.apprikart.com/api/query/";
+  
+    axios.post( dashboardsApi,{ text: `give me summary update of ${option}` },{headers: headerObject})
+      .then((response) => {
+        console.log("API Response:", response.data);
+        setSummary(response.data.response); 
+      })
+      .catch((err) => {
+        if (err.response && err.response.status === 500) {
+          // Handle the 500 Internal Server Error here
+          console.error("Internal Server Error:",err);
+          setSummary("Internal Server Error");
+        } else {
+          // Handle other errors here
+          console.error("Error:", err);
+          setSummary("Internal Server Error");
+        }
+      });
+    
+    // Replace this with fetching data for the selected employee and updating the chart data.
+    // Example data for the chart (replace with actual data)
+   
+    const data = {
+      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      datasets: [
+        {
+          label: `${option}'s Weekly Status`,
+          data: chartDataByEmployee[option] || [],
+          backgroundColor: 'rgba(225, 99, 132, 0.2)',
+          borderColor: 'rgb(225, 99, 132)',
+          borderWidth: 1,
+          borderRadius: 4,
+          categoryPercentage: 0.6,
+          barPercentage: 0.5,
+        },
+      ],
     };
 
-    setQuestions([...questions, userInput]);
-    setMessages([...messages, newMessage]);
-    setUserInput('');
+    setChartData(data);
+
   };
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
-  const toggleMobileSidebar = () => {
-    setMobileSidebarOpen(!mobileSidebarOpen);
-  };
- function hamburgerclose(){
-
-   sethamburgerdisplay(!hamburgerdisplay); 
-
- }
-
- function hamburgerdisappearing(){
-
-  sethamburgerdisplay(!hamburgerdisplay); 
- }
   useEffect(() => {
-    if (messageListRef.current) {
-      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
-    }
-  }, [messages]);
-
-  const handleInputKeyPress = (e) => {
-    if (e.key === 'Enter') {
-    
-      sendMessage();
-    }
-  };
-  
+    // Fetch initial data or perform any other necessary initialization.
+  }, []);
 
   return (
     <>
-      <div className={`navbar ${inputFocused ? 'navbar-focused' : ''}`}>
-        <div className='chat-parent-div'>
-          {/* <div className='chat-name-div'>Chat</div> */}
-          <div className='hamburger-button'  onClick={hamburgerclose}>
-              {/* <div  style={{cursor:"pointer"}}> */}
-                <img src={hamburger} style={{width:"60px",height:"60px"}}  className="hamburger-icon"/>
-              {/* </div> */}
-          </div>
+   <div className='voice-navbar-section'>
+        <div className='voice-parent-div'>
+        <div className='voice-image-div'>
+           <img src={funding} alt="voiceicon" className='voice-image-div-section'/>
+           </div>
+       <div className='heading-text'><b>EMPLOYEE DASHBOARD</b></div>
+       </div>
         </div>
 
-        <div className='clear-chat-parent-div'>
-          <div className='new-chat-div' onClick={clearChat}>+ New Chat</div>
-          <div className={`toggle-sidebar-button ${mobileSidebarOpen ? 'open' : ''}`} onClick={toggleMobileSidebar}>
-            <img src={persontwo} alt="person-icon" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-          </div>
-          
-        </div>
+    <div  style={{display:"flex",flexDirection:"column",flexWrap:"wrap",gap:"10px",marginTop:"80px"}}>
+      <div style={{ textAlign: 'center', marginTop: '20px', textTransform: 'uppercase' }}>
+        <b>Employee Weekly Status</b>
       </div>
 
-      <div className={hamburgerdisplay ? 'sidebaropen' : 'sidebarclose'}>
-        <div className='sidebar-content'>
-          <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
-          <h2 >Questions</h2>
-          <h1 onClick={hamburgerdisappearing} className='hamburgerdisappearingicon'>
-            <img src={close} style={{width:"40px",height:"40px"}}/>
-          </h1>
-         
-          </div>
-          <ul>
-  {questions.slice().reverse().map((question, index) => (
-    <li key={index} className='question'>
-      {question}
-    </li>
-  ))}
-</ul>
-        </div>
-      </div>
-
-      <div className="chat-app" >
-        <div className="chat" >
-          <div className="message-list" ref={messageListRef}  >
-            {messages.map((message, index) => (
-              <div key={index} className="message"  style={{border:"1px solid white",backgroundColor:"white"}}>
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <div className='user-parent-div'>
-                    <div className='user-timestamp-parent-div'>
-                      <div className='user-name-div'>user</div>
-                      <div className='user-time-div'>{message.timestamp}</div>
-                    </div>
-                    <div className='user-question-div'>{message.text}</div>
-                  </div>
-                  <div className='user-parent-output-div'>
-                    <div className='user-timestamp-parent-div-two'>
-                      <div className="chatbot-name-div">Chatbot</div>
-                      <div className='chatbot-time-div'>{message.timestamp}</div>
-                    </div>
-                    <div className='chatbot-output-div'>output</div>
-                  </div>
-                </div>
+      <div style={{ position: 'relative', marginTop: '5px'}}>
+        <div onClick={toggleDropdown} className="parent-div"  style={{ border: '1px solid grey', width: '300px', cursor: 'pointer', display: 'flex', justifyContent: 'space-between',borderRadius:"5px"}}>
+          <div style={{padding:"10px"}} >{selectedOption || 'Select'}</div>
+          <div>
+            {popupOpen ? (
+              <div style={{ width: '22px', height: '22px',paddingTop:"10px",paddingRight:"30px"}}>
+                <img src={dropdownuparrows} alt="Dropdown Open" style={{width:"20px",height:"20px"}} />
               </div>
-            ))}
-          </div>
-          <div className="user-input">
-            <input
-              type="text"
-              placeholder="Type your message..."
-              value={userInput}
-              onChange={handleInputChange}
-              onKeyDown={handleInputKeyPress}
-              style={{
-                width: "100%",
-                // Prevent text from wrapping
-                 overflow: "hidden",
-                 wordWrap:"now-wrap"
-              }}
-            />
-           
-            <button onClick={sendMessage}>Send</button>
-            
+            ) : (
+              <div style={{ width: '22px', height: '22px',paddingRight:"30px",paddingTop:"10px"}}>
+                <img src={dropdowndownarrows} alt="Dropdown Closed"  style={{width:"20px",height:"20px"}} />
+              </div>
+            )}
           </div>
         </div>
+       {popupOpen && (
+    <div className="scrollable-options" >
+      <div className="options-container">
+        <ul className="options-list">
+          {optionstwo.map((option, index) => (
+            <li key={index} className="option" onClick={() => handleOptionClick(option)}>
+              {option}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )}
+      </div>
+      {!summary ? (
+        <div className={`selection-section ${optionSelected ? 'hidden' : ''}`} style={{ textAlign: "center" }}>
+    <div className='data-section'>NO DATA</div>
+    <div style={{paddingTop:"20px"}} className='drop-option-section'>Select an option from the above dropdown</div>
+  </div>
+) : null}
+
+{popupTwo && (
+  <div style={{marginTop:"100px",paddingRight:"20px",paddingLeft:"20px",width:"100%"}} className='summary-section'>
+    <h2>Summary:</h2>
+    {/* <p>The Samsung Galaxy S8 is a beautifully designed phone with a large, vibrant display and an impressive camera. But its high price tag and lackluster battery life are major drawbacks,
+    The Samsung Galaxy S8 is a beautifully designed phone with a large, vibrant display and an impressive camera. But its high price tag and lackluster battery life are major drawbacks."
+
+    </p> */}
+     {summary && (
+    <p>{summary}</p>
+    )}
+  </div>
+
+)}
+
+      <div style={{width:"100%" }} >
+        {chartData && (
+          <Bar
+            height={300}
+            width={100}
+            data={chartData}
+            options={{
+              maintainAspectRatio: false,
+              scales: {
+                x: {
+                  beginAtZero: true,
+                  grid: {
+                    display: true,
+                  },
+                  stacked: true,
+                },
+                y: {
+                  display: true,
+                  beginAtZero: true,
+                  grid: {
+                    display: true,
+                  },
+                  stacked: true,
+                },
+              },
+              layout: {
+                padding: {
+                  left: 40,
+                  right: 40,
+                  top: 60,
+                  bottom:5
+                },
+              },
+              legend: {
+                labels: {
+                  fontSize: 0.1,
+                },
+              },
+            }}
+          />
+        )}
+      </div>
       </div>
     </>
   );
-}
+};
 
 export default Chatbotapistwo;
